@@ -4,7 +4,6 @@
 
     <div *ngIf="cursos$ | async as cursos; else loading">
       <table mat-table [dataSource]="cursos" class="mat-elevation-z8">
-
         <!-- Name Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Curso</th>
@@ -21,6 +20,25 @@
               curso.category | category
             }}</mat-icon>
           </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="acoes">
+          <mat-header-cell *matHeaderCellDef>
+            <button mat-mini-fab color="accent" aria-label="Adicionar um curso">
+              <mat-icon (click)="onAdd">add</mat-icon>
+            </button>
+          </mat-header-cell>
+
+          <mat-cell *matCellDef="let curso">
+            <button mat-icon-button color="primary" aria-label="Editar curso">
+              <mat-icon (click)="onEdit">edit</mat-icon>
+            </button>
+
+            <button mat-icon-button color="warning" aria-label="Remover curso">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

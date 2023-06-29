@@ -8,31 +8,38 @@ import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/err
 @Component({
   selector: 'app-cursos',
   templateUrl: './cursos.component.html',
-  styleUrls: ['./cursos.component.scss']
+  styleUrls: ['./cursos.component.scss'],
 })
 export class CursosComponent {
 
-  cursos$: Observable <Curso[]> ;
+  onAdd() {
+    console.log('onAdd');
+    }
+  onEdit() {
+    console.log('Está funcioanndo');
+    }
 
-  displayedColumns = ['name','category']
+  cursos$: Observable<Curso[]>;
+
+  displayedColumns = ['name', 'category', 'acoes'];
 
   //cursosService  : CursosService;
 
-  constructor(
-    public dialog: MatDialog,
-    private cursosService  : CursosService ){
+  constructor(public dialog: MatDialog, private cursosService: CursosService) {
     //this.cursosService = new CursosService();
-    this.cursos$ = this.cursosService.list()
-    .pipe( catchError(error =>{
-      this.onError('Erro ao carregar cursos.');
-      return of([])
-    } )
+    this.cursos$ = this.cursosService.list().pipe(
+      catchError((error) => {
+        this.onError('Erro ao carregar cursos.');
+        return of([]);
+      })
     );
   }
+
   onError(errorMsg: string) {
     this.dialog.open(ErrorDialogComponent, {
-      data: errorMsg
+      data: errorMsg,
     });
+  }
 
-}
+
 }
